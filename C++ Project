@@ -10,6 +10,7 @@
 #include<windows.h>
 #include <direct.h>
 
+
 using namespace std;
 class Game1{
     protected:
