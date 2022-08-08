@@ -1,0 +1,881 @@
+#include<iostream>
+#include<time.h>
+#include<fstream>
+#include<cstring>
+#include<conio.h>
+#include<ctime>
+#include<cstdlib>
+#include<stdio.h>
+#include<errno.h>
+#include<windows.h>
+#include <direct.h>
+
+using namespace std;
+class Game1{
+    protected:
+   static int Highest_Score;
+    int score;
+    public:
+    Game1(){
+        score = 0;
+    }
+    virtual void dis() = 0; //pure virtual function
+    int Guess_Num(){
+        system("cls");
+        cout<<"\n\n\n\n\n\n\n\n\n\n\n";
+    cout<<"\t\t\t\t\tLoading ";
+    char l = 219;
+    for(int i=0;i<36;i++){
+        cout<<l;
+        if(i<10)
+        Sleep(170);
+        else if(i>=10 && i<20)
+        Sleep(120);
+        if(i>=10)
+        Sleep(20);
+    }
+    system("cls");
+        int number,total=1,guess;
+        srand(time(0));
+        number = rand()%50+1;
+        // cout<<"\n"<<number<<" ::num \n";
+        cout<<endl
+        <<"\n\n\n\n\t\t\t\t**********************************************************"<<endl
+                    <<"\t\t\t\t|\t\tWELCOME TO GUESS-ME GAME\t\t|"<<endl
+        <<"\t\t\t\t**********************************************************"<<endl;
+        cout<<endl
+        <<"\t\t\t\t\t==Reward: =="<<endl
+        <<"\t\t\t\t\tGuess in 3 or less attempts: 15 points"<<endl
+        <<"\t\t\t\t\tGuess in less than 5 attempts: 10 points"<<endl
+        <<"\t\t\t\t\tGuess in 5 and more attempts: 5 points"<<endl<<endl;
+    do{
+        cout<<endl<<endl<<"\t\t\t\t|\tGuess num bw 1 to 50: ";
+        cin>>guess;
+        if(guess>number){
+            cout<<endl<<"\t\t\t\t|\tHint:: LOWER Number :";
+        }
+        else if(guess<number){
+            cout<<endl<<"\t\t\t\t|\tHint:: HIGHER Number :";
+        }
+        else {
+        
+            cout<<endl<<"\n\n\n\n\t\t\t\t=====================================================================";
+            cout<<endl<<"\t\t\t\t\tYou passed it in '"<<total<<"' attempts.\t";
+            }
+    total++;
+    } while(guess!=number);
+     if(total-1 <= 3){
+            score=15;
+        }
+        else if(total-1>3) score=10;
+        else if(total-1>=5) score=5;
+        cout<<endl<<"\t\t\t\t\tYour score is: '"<<score<<"' \t\t";
+        getch();
+        return score;
+    }
+    ~Game1(){
+
+    }
+};
+int Game1::Highest_Score=0;
+class Game2{
+	
+    protected:
+    static int Highest_Score_G2;
+    int score_2;
+    char c,p;
+    public:
+    Game2(){
+        score_2 = 0;
+    }
+    ~Game2(){
+    }
+    virtual void dis() = 0;
+    int	game2(){
+        int n=0;
+//        Game1 g;
+
+	cout<<"\n\n\t\t\t\t\t********lets play rock paper and sissor********** ";
+	cout<<"\n\t\t\t\t\t********* RULES******************";
+	cout<<"\n\t\t\t\t\t YOU ARE PLAYING ROCK PAPPER AND SCISSOR ";
+	cout<<"\n\t\t\t\t\t ROCK=r\n\t\t\t\t\tPAPER=p\n\t\t\t\t\tSCISSOR=s";
+    while(1){
+	cout<<"\n\t\t\t\t\t Enter your choices : ";
+	cin>>c;
+	
+	 srand(time(0));
+	 n=rand()%10;
+
+	 if (n<3){
+	 	p='r';
+	 }
+	 	if (n>3&&n<6){
+	 	p='s';
+	 }
+	 	if (n>6){
+	 	p='p';
+	 }
+	 cout<<"\n\t\t\t\t\tComputer choice: "<<p;
+		  if(c=='s'&&p=='s') {
+		 	score_2 = 0;
+		 	return score_2;
+		 }
+		  if(c=='p'&&p=='p') {
+		 	score_2 = 0;
+		 	return score_2;
+		 }
+		  if(c=='r'&&p=='s') {
+		 	score_2 = 1;
+		 	return score_2;
+		 }
+		  if(c=='s'&&p=='p') {
+		 	score_2 = 1;
+		 	return score_2;
+		 }
+		  if(c=='p'&&p=='r') {
+		 	score_2 = 1;
+		 	return score_2;
+		 }
+	      if(c=='s'&&p=='r') {
+		 	score_2 = score_2 -1;
+		 	return score_2;
+		 }
+		  if(c=='p'&&p=='s') {
+		 	score_2 = score_2 -1;
+		 	return score_2;
+		 }
+		  if(c=='r'&&p=='p') {
+		 	score_2= score_2 -1;
+		 	return score_2;
+		 }
+    }
+}
+    int RPS_play(){
+            
+            system("cls");
+            cout<<"\n\n\n\n\n\n\n\n\n\n\n";
+            cout<<"\t\t\t\t\tLoading ";
+            char l = 219;
+            for(int i=0;i<36;i++){
+            cout<<l;
+            if(i<10)
+            Sleep(170);
+            else if(i>=10 && i<20)
+            Sleep(120);
+            if(i>=10)
+            Sleep(20);
+            }
+            system("cls");
+
+            int s ;
+			s = game2();
+            cout<<"\n\t\t\t\t\t Your score is "<<score_2;
+            return s;
+    }
+};
+int Game2::Highest_Score_G2 = 0;
+class Player: public Game1, public Game2{
+    protected:
+    int ID;
+    int scores;
+    int score2;
+    char NAME[20];
+   
+    public:
+    friend class Admin;
+    Player(){
+        ID = 0;
+        strcpy(NAME,"raabia");
+        scores = 0;
+        score2 = 0;
+    }
+    Player(const Player&obj){
+        ID = obj.ID;
+        // NAME[20] = obj.NAME[20];
+        strcpy(NAME,obj.NAME);
+        scores = obj.scores;
+        score2 = obj.score2;
+    }
+    void enter(){
+        Player f;
+//        f.Player_info();
+        cin>>f;
+        fstream p;
+        p.open("Player.bin",ios::app);
+        p.write((char*)&f,sizeof(f));
+        p.close();
+    }
+	// void Player_info(){
+    //     cout<<endl<<"\n\n\t\t\t\tEnter Your Name : ";
+    //     fflush(stdin);
+    //     cin.getline(NAME,20);
+    //     cout<<endl<<"\t\t\t\tEnter Your ID: "; cin>>ID;
+    //     scores = 0;
+    //     player_can();
+    // }
+    void player_can(){
+        char ch = 1;
+        cout<<endl<<"\t\t\t\t\tOpen your account by playing a game: "<<ch<<ch<<endl;
+        play_a_game();
+        cout<<endl<<"\n\n\n\n\t\t\t\t=====================================================================";
+        cout<<endl<<"\t\t\t\t\tHope You Had A Nice Time"<<endl
+        <<"\t\t\t\t\tTo continue log in again with your registeration ID"<<endl;
+        getch();
+    }
+    void play_a_game(){
+        char ch = 16;
+        int o = 0;
+        cout<<"\t\t\t\t------------------------------------------------------------"<<endl;
+        cout<<endl
+        <<"\t\n\t\t\t\t\tWhich Game You Want To Play: "<<endl
+        <<"\t\n\t\t\t\t\t\t1) Guess The Number"<<endl
+        <<"\t\n\t\t\t\t\t\t2) Rock Paper Scissor"<<endl
+        <<"\t\n\t\t\t\t\t\t3) Exit"<<endl
+        <<"\t\n\t\t\t\t\t\t"<<ch<<" ";
+        cin>>o;
+            switch(o){
+                case 1:
+                {
+                scores = Guess_Num() ;
+                }
+                break;
+                case 2:
+                {
+                score2 = RPS_play();
+                }
+                break;
+                case 3:
+                break;
+            }
+    }
+    bool match_player(){
+        int id;
+        int scor;
+        char name[20];
+        char ch = 6;
+        char c = 14;
+        Player f;
+        Player obj;
+        bool flag = false;
+        fstream p("Player.bin",ios::in);    //Opening all records to search for user name
+        cout<<endl<<"\n\t\t\t\tEnter Your Name : ";
+        fflush(stdin);
+        cin.getline(name,20);
+        cout<<endl<<"\t\t\t\tEnter Your ID: "; 
+        cin>>id;
+        // p.read((char*)&f,sizeof(f));
+        
+        while((p.read((char*)&f,sizeof(f)))!=NULL){
+            if( id == f.ID && strcmp ( name,f.NAME ) == 0 ){
+            flag = true;
+            obj = f;     //obj gets all data of f
+            }
+        }
+
+        if(flag){
+            system("cls");
+        	cout<<"\n\t\t\t---------------------------------------------------------------------------------------\n";
+        	cout <<endl<<"\n\t\t\t\t\tID & NAME SUCCUESSFULLY MATCHES! "<<c<<endl<<endl;
+        	cout<<"\n\t\t\t---------------------------------------------------------------------------------------\n";
+            cout<<"\n\t\t\t|\tName\t|\tID\t|\tScores_1 \t|\tScores_2 \t|";
+            obj.did();
+            getch();
+            obj.player_can(obj); //now the user whose id matched calls his options menu
+        }
+
+        p.close();
+        return flag;
+    }
+    void update_record(){
+        fstream file;
+		file.open("Player.bin",ios::in);
+        fstream tem;
+		tem.open("temp.bin",ios::out);
+		if(file.is_open()){
+			// cout<<"\nplayer is opening";
+		}
+		if(tem.is_open()){
+				// cout<<"\ntemp is opening";
+		}
+        Player object;
+        
+        while((file.read((char*)&object,sizeof(object)))!=NULL){
+            if(ID == object.ID && strcmp(NAME,object.NAME)==0){
+                //my score has been changed so it will write a new score 
+                object.score2 = score2;
+                object.scores = scores;
+                strcpy(object.NAME,NAME);
+                object.ID = ID;
+                tem.write((char*)&object,sizeof(object));
+            }
+            else{
+                //if data is not found it will just keep writing old data into temporary file
+                tem.write((char*)&object,sizeof(object));
+            }
+        }
+        file.close();
+        tem.close();
+		tem.open("temp.bin",ios::in);
+        file.open("Player.bin",ios::out);
+        
+        while((tem.read((char*)&object,sizeof(object)))!=NULL){
+            file.write((char*)&object,sizeof(object));
+        }
+        file.close();
+        tem.close();
+        // getch();
+        int y = remove("temp.bin");
+        if (y==0){
+            // cout<<"\nFile removed";
+        }
+
+    }
+    void player_can(Player &obj){
+        int q = 0;
+        char ch = 16;
+        while(q!=6){
+            system("cls");
+
+        cout<<endl<<endl<<endl
+        <<"\t\t\t\t\t\t\tPLAYER"<<endl
+        <<"\t\t\t\t--Select: "<<endl
+        <<"\t\t\t\t\t1) Play A Game"<<endl
+        <<"\t\t\t\t\t2) View Highscores of G1"<<endl
+        <<"\t\t\t\t\t3) View Highscores of G2"<<endl
+        <<"\t\t\t\t\t4) ScoreBoard of Game 1"<<endl
+        <<"\t\t\t\t\t5) ScoreBoard of Game 2"<<endl
+        <<"\t\t\t\t\t6) Exit"<<endl
+        <<"\t\t\t\t\t"<<ch<<" ";
+        cin>>q;
+            switch (q)
+            { 
+            case 1:			    //play game
+                play_a_game(); //the matched user now plays a game and his scores are now different
+                update_record();
+                getch();
+            break;
+            
+            case 2: //HighScores of Game 1
+            system("cls");
+            cout<<endl<<endl<<"\n\n\t\t\t\t------------------------------------------------------------"<<endl;
+            cout<<"\n\n\t\t\t\t\tHighScores Of Game One: "<<if_High();
+            cout<<endl<<endl<<"\n\n\t\t\t\t------------------------------------------------------------"<<endl;
+            getch();
+            break;
+
+            case 3: //HighScores of Game 2
+            system("cls");
+            cout<<endl<<endl<<"\n\n\t\t\t\t------------------------------------------------------------"<<endl;
+            cout<<"\n\n\t\t\t\t\tHighScores Of Game Two: "<<if_HIGH_2();
+            cout<<endl<<endl<<"\n\n\t\t\t\t------------------------------------------------------------"<<endl;
+            getch();
+            break;
+
+            case 4:{    //ScoreBoard of Game 1
+                system("cls");
+                dis();
+                getch();
+            }
+            break;
+
+            case 5://ScoreBoard of Game 2
+            system("cls");
+            dis2();
+            getch();
+            break;
+            }
+        }   //END OF WHILE
+    }
+    void did(){ //complete record displayer
+        cout<<endl<<"\t\t\t|\t"<<NAME<<"\t|\t"<<ID<<"\t|\t"<<scores<<"\t\t|\t"<<score2<<"\t\t|";
+    }
+    void did(int i,float k){ //members with ids
+        cout<<endl<<"\t\t\t\t\t"<<i<<"\t|\t"<<NAME<<"\t|\t"<<ID<<"\t|";
+    }
+    void did(int i){
+        cout<<endl<<"\t\t\t"<<i<<"\t|\t"<<NAME<<"\t|\t"<<ID<<"\t|\t"<<scores<<"\t\t|";
+    }
+    void did2(int i){
+        cout<<endl<<"\t\t\t"<<i<<"\t|\t"<<NAME<<"\t|\t"<<ID<<"\t|\t"<<score2<<"\t\t|";
+    }
+    void dis(){     //score board of game 1
+        Player l;
+        fstream x("Player.bin",ios::in);
+        if(!x.is_open()){
+            // cout<<"\n\n\t\t\t\t\tERROR File is not opening";
+        }
+        int i = 0;
+        cout<<"\n\t\t\t======================================================================";
+        cout<<"\n\t\t\t\t\tSCORE-BOARD OF GAME 1";
+        cout<<"\n\t\t\t======================================================================";
+        cout<<"\n\n\t\t\tSno\t|\tName\t|\tID\t|\tScores_G1\t|";
+        
+        while((x.read((char*)&l,sizeof(l)))!=NULL){
+            l.did(i+1);
+            i++;
+        }
+        cout<<"\n\t\t\t======================================================================";
+        x.close();
+    }
+    void dis2(){    //score board of game 2
+        Player l;
+        fstream x("Player.bin",ios::in);
+        if(!x.is_open()){
+//            cout<<"\n\n\t\t\t\t\tERROR File is not opening";
+        }
+        int i = 0;
+        cout<<"\n\t\t\t======================================================================";
+        cout<<"\n\t\t\t\t\tSCORE-BOARD OF GAME 2";
+        cout<<"\n\t\t\t======================================================================";
+        cout<<"\n\n\t\t\tSno\t|\tName\t|\tID\t|\tScores_G2 \t|";
+        
+        while((x.read((char*)&l,sizeof(l)))!=NULL){
+            l.did2(i+1);
+            i++;
+        }
+        cout<<"\n\t\t\t======================================================================";
+        x.close();
+    }
+    int if_High(){
+        Player p;
+        fstream ff("Player.bin",ios::in);
+        Highest_Score = 0;
+        while((ff.read((char*)&p,sizeof(p)))!=NULL){
+            
+           if( p.scores > Highest_Score){
+                Highest_Score = p.scores; //highest of all over game
+           }
+
+        }
+        return Highest_Score;
+    }
+    int if_HIGH_2(){
+        Player p;
+        fstream ff("Player.bin",ios::in);
+        Highest_Score_G2 = 0;
+        while((ff.read((char*)&p,sizeof(p)))!=NULL){
+            
+           if( p.score2 > Highest_Score_G2){
+                Highest_Score_G2 = p.score2; //highest of all over game
+           }
+
+        }
+        return Highest_Score_G2;
+    }
+    int get_id(){
+        return ID;
+    }
+    char* get_name(){
+        return NAME;
+    }
+    bool operator==(const Player&C){
+        if((C.ID==ID) && strcmp(C.NAME,NAME)){
+            return true;
+        }
+        else false;
+    }
+    friend istream& operator >> (istream & is1, Player& obj1);
+    ~Player(){  }
+};
+istream& operator >> (istream &is1, Player& obj1){
+        cout<<endl<<"\n\n\n\t\t\t\t\tEnter Your Name : ";
+        fflush(stdin);  cin.getline(obj1.NAME,20);
+        cout<<endl<<"\n\t\t\t\t\tEnter Your ID: "; is1>>obj1.ID;
+        obj1.scores = 0;
+        obj1.player_can(); 
+	    return is1;
+}
+class Admin : public Player{
+    int Admin_ID;
+    char password[15];
+    char ad_name[15];
+    public:
+    Admin(){
+        Admin_ID = 1000;
+        strcpy(password,"80001");
+        strcpy(ad_name,"SirBehraj");
+    }
+    void Make_Admin(){
+        Admin admin;
+        cout<<endl<<"\t\t\t\t\tCREATING ADMIN ACCOUNT FOR GAMING CLUB";
+        cout<<endl<<"\t\t\t\t\tEnter Admin's User Name: "; fflush(stdin); cin.getline(admin.ad_name,15);
+        cout<<endl<<"\t\t\t\t\tEnter Admin's User ID: "; cin>>admin.Admin_ID;
+        cout<<endl<<"\t\t\t\t\tCreate Password to Access Private Details Of Casino: "; fflush(stdin);  cin.getline(admin.password,15);
+        cout<<endl<<"\t\t\t\t\tID Created Successfully!"<<endl;
+        
+        fstream ak("Admin.bin",ios::out);
+        ak.write((char*)&admin,sizeof(admin));
+        ak.close();
+
+    }
+    bool Match_Admin(){
+        int id; char pw[15]; char k;
+		int i=0;
+        bool flag = false;
+        fflush(stdin);
+		   	cout<<endl
+           	<<"\t\t\t\t\tIf you Want to Enter as an Admin"<<endl;
+		   	cout<<endl<<"\t\t\t\t\tEnter your log in ID: ";
+            cin>>id;
+            cout<<endl<<"\t\t\t\t\tEnter your password : ";
+            fflush(stdin);
+            cin.getline(pw,15);
+//           while(i<15){
+//               pw[i]=getch();
+//               k=pw[i];
+//               if(k==13)
+//               break;
+//               else 
+//               cout<<"*";
+//               i++;
+//           }
+            Admin obj;
+            fstream hh("Admin.bin",ios::in);
+            while(( hh.read((char*)&obj,sizeof(obj))) !=NULL){
+                if(id==obj.Admin_ID && strcmp(pw,obj.password)==0){
+                    flag = true;
+                }
+            }
+        return flag;
+    }
+    void Update_PW(){
+        int id;
+        int i = 0;
+        bool flag = false;
+        char pw[15];
+        char name[15];
+        char new_pw[15];
+        Admin obj;
+        system("cls");
+        cout<<endl
+        <<"\t\t\t\tIf you Want to Change PassWord for Admin Account"<<endl;
+        cout<<endl<<"\t\t\t\tEnter your NAME: ";
+        fflush(stdin);
+        cin.getline(name,15);
+        cout<<endl<<"\t\t\t\tEnter your log in ID: ";
+        cin>>id;
+        cout<<endl<<"\t\t\t\tEnter NEW PASSWORD: ";
+        fflush(stdin);
+        cin.getline(pw,15);  
+
+        fstream file("Admin.bin",ios::in);
+        fstream xz("temp.bin",ios::out);
+        
+        while((file.read((char*)&obj,sizeof(obj)))!=NULL){
+            if(id==obj.Admin_ID && strcmp(name,obj.ad_name)==0){
+               flag = true;
+               strcpy(obj.password,pw);
+               xz.write((char*)&obj,sizeof(obj));
+            }//if
+            else{
+                 xz.write((char*)&obj,sizeof(obj));
+            }
+        }//while
+        if(flag == true){
+            cout<<"\t\t\t------------------------------------------------------------"<<endl;
+        	 cout<<"\t\t\t\tPassword Changed Successfully"<<endl<<endl<<endl;
+            cout<<"\t\t\t------------------------------------------------------------"<<endl;
+        }
+        else {
+            cout<<"\t\t\t------------------------------------------------------------"<<endl;
+            cout<<endl<<"\t\t\t\tUnable to Change PASSWORD!";
+            cout<<endl<<"\t\t\t\tCheck Your ID || PASSWORD "
+            <<endl<<"\t\t\t\t&& Try again!! "<<endl<<endl;
+            cout<<"\t\t\t------------------------------------------------------------"<<endl;
+      
+        }
+        file.close();
+        xz.close();
+        xz.open("temp.bin",ios::in);
+        file.open("Admin.bin",ios::out);
+       
+        while(( xz.read((char*)&obj,sizeof(obj)))!=NULL){
+            file.write((char*)&obj,sizeof(obj));
+        }
+        file.close();
+        xz.close();
+        int y = remove("temp.bin");
+        if (y==0){
+//            cout<<"\nFile removed";
+        }
+    }
+    void did(int i){ //overriding
+        cout<<endl<<i<<"\t|\t"<<NAME<<"\t|\t"<<ID<<"\t|";
+    }
+    void did(int i,float p){ //overriding
+       
+        cout<<endl<<i<<"\t|\t"<<NAME<<"\t|";
+    }
+    void dis(){ //overriding
+        Player l;
+        fstream x;
+		x.open("Player.bin",ios::in);
+        if(!x.is_open()){
+            cout<<"\nERROR File is not opening";
+        }
+        
+        int i = 0;
+        cout<<"\n\t\t\t======================================================================";
+        cout<<"\n\t\t\t\t\tSno\t|\tName\t|\tID\t|";
+        cout<<"\n\t\t\t---------------------------------------------------------------------\n";
+        
+        while((x.read((char*)&l,sizeof(l)))!=NULL){
+            l.did(i+1,1.1);
+            i++;
+        }
+        x.close();
+    }
+    void delete_rec(){ //specific record
+        char nm[15];
+        int id;
+        bool flag = false;
+        cout<<endl<<"\tEnter the NAME of the member you want to remove: ";
+        fflush(stdin);
+        cin.getline(nm,15);
+        cout<<endl<<"\tEnter the ID of the member you want to remove: ";
+        cin>>id;
+
+        fstream file;
+		file.open("Player.bin",ios::in);
+        fstream tem;
+		tem.open("temp.bin",ios::out);
+        Player object;
+        
+        while((file.read((char*)&object,sizeof(object)))!=NULL){
+            if(id == object.ID && strcmp( nm , object.NAME )==0){
+                /*
+                If the member's data is found just don't write it in the file and copy the rest in else statement
+                */
+               flag = true;
+                continue;
+            }
+            else{
+                //if data is not found it will just keep writing old data into temporary file
+                tem.write((char*)&object,sizeof(object));
+            }
+        }
+        file.close();
+        tem.close();
+        Player ob;
+        tem.open("temp.bin",ios::in);
+        file.open("Player.bin",ios::out);
+       
+        while(( tem.read((char*)&ob,sizeof(ob)))!=NULL){
+            file.write((char*)&ob,sizeof(ob));
+        }
+        file.close();
+        tem.close();
+        // getch();
+        int y = remove("temp.bin");
+        if (y==0){
+//            cout<<"\nFile removed";
+        }
+        if(flag) 
+        cout<<endl<<"\t\t\t\t\tRECORD DELETED SUCCESSFULLY!!"<<endl;
+        else 
+        cout<<endl<<"\t\t\t\t\tRECORD NOT FOUND"<<endl;
+    }
+    void delete_rec(int i){ //clearing file
+        fstream file("Player.bin",ios::out);
+        file.close();
+        cout<<endl<<"\n\n\t\t\t\t\tFILE ERASED SUCCESSFULLY!!"<<endl;
+
+    }
+    void Access_Admin(){
+        char ch = 16;
+        int l;
+        while(l!=9){
+            system("cls");
+        cout<<endl<<endl
+            <<"\t------------------------------------------------------------"<<endl
+            <<"\t\tSelect: "<<endl
+            <<"\t\t1) View List of All Registered Members"<<endl
+            <<"\t\t2) Remove Member Player Record From Club"<<endl
+            <<"\t\t3) View HighScores Of Game 1"<<endl
+            <<"\t\t4) View HighScores Of Game 2"<<endl
+            <<"\t\t5) View Scores in Game 1"<<endl
+            <<"\t\t6) View Scores in Game 2"<<endl
+            <<"\t\t7) Delete All Record Of Club"<<endl
+            <<"\t\t8) Change Password For Admin ID"<<endl
+            <<"\t\t9) Exit"<<endl
+            <<"\t\t"<<ch<<" ";
+            cin>>l;
+            switch(l){
+                case 1:
+                system("cls");
+                dis();
+                getch();
+                break;
+
+                case 2:
+                system("cls");
+                delete_rec();
+                getch();
+                break;
+                
+                case 3:
+                system("cls");
+                cout<<endl<<endl<<"\n\n\t\t\t\t------------------------------------------------------------"<<endl;
+                cout<<endl<<"\n\t\t\t\t\tHighScores of Game 1: "<<if_High();
+                cout<<"\n\n\t\t\t\t------------------------------------------------------------"<<endl;
+                getch();
+                break;
+
+                case 4:
+                system("cls");
+                cout<<endl<<endl<<"\n\n\t\t\t\t------------------------------------------------------------"<<endl;
+                cout<<endl<<"\n\t\t\t\t\tHighScores of Game 2: "<<if_HIGH_2();
+                cout<<"\n\n\t\t\t\t------------------------------------------------------------"<<endl;
+                getch();
+                break;
+
+                case 5:
+                system("cls");
+                Player::dis();
+                getch();
+                break;
+
+                case 6:
+                system("cls");
+                Player::dis2();
+                getch();
+                break;
+                case 7:
+                system("cls");
+                delete_rec(100);
+                getch();
+                break;
+                case 8:
+                system("cls");
+                Update_PW();
+                getch();
+                break;
+            }
+            }
+    }
+    ~Admin(){   }
+};
+int main(){
+    int n=0;
+    Admin admin;
+    char ch = 16;
+    char c = 4;
+    char choice;
+    Player player;
+    static int A;
+    bool abc=0;
+    while(n!=3){
+    system("cls");
+    cout<<endl
+    <<"\n\n\n\n\t\t\t\t*********************************************"<<endl
+            <<"\t\t\t\t\t\tGAME'S AREA"<<endl
+    <<"\t\t\t\t*********************************************";
+    cout<<endl
+    <<"\t\t\t\tLogin As: "<<endl
+    <<"\t\t\t\t\t1) ADMIN"<<endl
+    <<"\t\t\t\t\t2) PLAYER"<<endl
+    <<"\t\t\t\t\t3) Exit"<<endl
+    <<"\t\t\t\t\t"<<ch<<" ";
+    cin>>n;
+    switch(n){
+        case 1:{
+            int m=0;
+            while(m!=3){
+            cout<<endl<<"\n\t===============================================================================================================";
+            getch();
+            system("cls");
+            cout<<endl
+            <<"\n\n\n\n\t\t\t\t------------------------------------------------------------"<<endl
+            <<"\n\t\t\t\t\t--Select: "<<endl
+            <<"\t\t\t\t\t\t1) Enter Admin Info"<<endl
+            <<"\t\t\t\t\t\t2) Log in to already existing account "<<endl
+            <<"\t\t\t\t\t\t3) Exit"<<endl
+            <<"\t\t\t\t\t\t"<<ch<<" ";
+            cin>>m;
+            switch(m){
+                case 1:
+                    system("cls");
+                    cout<<endl<<"\n\n\n\n\t\t\t\t=============================================================";
+                    admin.Make_Admin();
+                    cout<<endl<<"\n\n\t\t\t\t=============================================================";
+                    getch();
+                    system("cls");
+                    admin.Access_Admin();
+                    // getch();
+                    break;
+                case 2:
+                // i am an admin
+                    system("cls");
+                   if(admin.Match_Admin()){
+                        cout<<endl<<"\n\n\n\n\t\t\t\t=============================================================";
+                        cout<<endl
+                       <<"\t\t\t\t\t\t\tID MATCHED!"<<endl
+                       <<"\t\t\t\t\t"<<c<<" You can now access private data of Gaming Club. "<<c;
+                        cout<<endl<<"\n\n\t\t\t\t=============================================================";
+                       getch();
+                       system("cls");
+                        admin.Access_Admin();
+                        getch();
+                   }
+                   else{
+                       cout<<endl<<"\n\t\t\t\t\tCouldn't find the given Admin ID!! ";
+                       getch();
+                   }
+                    break;
+                  
+                } //switch
+            }    //while loop
+        }       //case 1
+        break;
+        
+        case 2:{
+        int p=0;
+            while(p!=3){
+            system("cls");
+            cout<<endl<<"\n\n\n\n\t\t\t\t=============================================================";
+            cout<<endl<<
+            "\n\t\t\t\t\t\t\t*PLAYER*"<<endl
+            <<"\t\t\t\t\t1. If you are already registerred"<<endl
+            <<"\t\t\t\t\t2. If you are a new member"<<endl
+            <<"\t\t\t\t\t3. Exit"<<endl
+            <<"\t\t\t\t\t"<<ch<<" ";
+            cin>>p;
+            switch(p){
+                case 1:
+                    //I HAVE MEMBERSHIP
+                    // getch();
+                    system("cls");
+                    cout<<endl<<"\n\n\n\n\t\t\t\t=============================================================";
+                    abc = player.match_player();
+                    if(abc == false){
+                    cout<<endl<<"\n\n\t\t\t\t=============================================================";
+                    cout<<endl<<"\t\t\t\tYou are not a member of our club";
+                    cout<<endl<<"\t\t\t\tDo you wish to get Registerred? (y/n): ";
+                    cin>>choice;
+                    if(choice=='Y'||choice=='y'){
+                    system("cls");
+                    cout<<endl<<"\n\n\n\n\t\t\t\t=============================================================";
+                    player.enter();
+                    getch();
+                    }
+                }
+                break;
+                case 2:{
+                int q = 0;
+                system("cls");
+                cout<<endl<<"\n\t\t\t\t=============================================================";
+                player.enter();
+                cout<<endl<<"\n\t\t\t\t=============================================================";
+                cout<<endl<<"\n\n\t\t\t\t\t**Congrats!! You are now a Member of Gaming Club**\t";
+                cout<<endl<<"\n\t\t\t\t=============================================================";
+                getch();
+                }
+                    break;
+                    }
+                }//end of while
+            }// end of case 2
+            break;
+        }
+    }   //End of while loop
+    return 0;
+}
